@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Популярные книги</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        .book-title {
+            font-weight: bold;
+        }
+
+        .author-genre {
+            color: #555;
+            font-size: 0.9em;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Популярные книги</h1>
+        <form method="POST" action="/update_is_read">
+            <ul>
+                {% for book in books %}
+                    <li>
+                        <span class="book-title">{{ book.title }}</span>
+                        <span class="author-genre">(Автор: {{ book.author }}) -
+                            <a href="/genre/{{ book.genre_id }}">{{ book.genre.name }}</a>
+                        </span>
+                        <input type="checkbox" name="book_is_read" value="{{ book.id }}" {% if book.is_read %}checked{% endif %}>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="actions">
+                <a href="/read-books">
+                    <button type="button">Посмотреть прочитанные книги</button>
+                </a>
+                <button type="submit">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
