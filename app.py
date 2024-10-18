@@ -17,7 +17,12 @@ def index():
 
 @app.route('/genre/<int:genre_id>')
 def genre_view(genre_id):
-    # Книги по жанру
+    """
+        Отображает страницу с книгами, относящимися к указанному жанру.
+
+        :param genre_id: Идентификатор жанра.
+        :return: Шаблон 'genre.html' с информацией о жанре и книгах.
+    """
     genre = Genre.query.get_or_404(genre_id)
     books = Book.query.filter_by(genre_id=genre_id).all()
     return render_template('genre.html', genre=genre, books=books)
